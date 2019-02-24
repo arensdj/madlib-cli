@@ -1,23 +1,30 @@
-from madlib_module import adjective  
+from madlib_module import create_mad_lib_story, get_prompts 
 
-def test_madlib_file():
-    with open('sample_template.txt', 'r') as fd:
-        count = len(open('sample_template.txt', 'r').readlines())
-        assert count > 0
+def test_madlib_template():
+    with open('output.txt', 'r') as sample_output_file:
+        expected = sample_output_file.read()
 
-# def test_madlib_output():
-#     """
-#     This is a test function for the test_madlib_output function 
-#     Attributes: 
-#       mad_lib_template: A string containing the Madlib template.
-#       input_reponses: A list of strings representing responses for the Madlib template.
-#     Test passes if assert evaluates to true
-#     """
-#     mad_lib_template_string = 'Make Me A Video Game!  
-    
-#     I the {Adjective} and {Adjective} {A First Name} have {Past Tense Verb} {A First Name}'s {Adjective} sister and plan to steal her {Adjective} {Plural Noun}!  What are a {Large Animal} and backpacking {Small Animal} to do? Before you can help {A Girl's Name}, you'll have to collect the {Adjective} {Plural Noun} and {Adjective} {Plural Noun} that open up the {Number 1-50} worlds connected to A {First Name's} Lair. There are {Number} {Plural Noun} and {Number} {Plural Noun} in the game, along with hundreds of other goodies for you to find.'
-    
-#     responses = ''
-#     actual = 
-#     expected = 4
-#     assert expected == actual
+    with open('sample_template.txt', 'r') as sample_template_file:
+        template = sample_template_file.read()
+
+    with open('test_input.txt', 'r') as sample_input_file:
+        responses = sample_input_file.read().split(', ')
+
+    actual = create_mad_lib_story(template, responses)
+
+    assert actual == expected 
+
+def test_get_prompts():
+    with open('sample_template.txt', 'r') as sample_template_file:
+        template = sample_template_file.read()
+
+    with open('prompts.txt', 'r') as sample_prompts_file:
+        expected = sample_prompts_file.read()
+
+    actual = get_prompts(template)
+
+    # print(str(actual))
+    # print()
+    # print(str(expected))
+
+    assert actual == expected
